@@ -12,8 +12,8 @@
 
 FROM php:8.0-apache as sendy
 
-ARG SENDY_VER=6.0.4
-ARG ARTIFACT_DIR=6.0.4
+ARG SENDY_VER=6.0.9
+ARG ARTIFACT_DIR=6.0.9
 
 ENV SENDY_VERSION ${SENDY_VER}
 
@@ -24,7 +24,7 @@ RUN apt -qq update && apt -qq upgrade -y \
   # Install php extension mysqli
   && docker-php-ext-install calendar gettext mysqli \
   # Remove unused packages
-  && apt autoremove -y 
+  && apt autoremove -y
 
 # Copy artifacts
 COPY ./artifacts/${ARTIFACT_DIR}/ /tmp
@@ -73,6 +73,6 @@ FROM sendy as debug
 RUN pecl channel-update pecl.php.net \
   && pecl install xdebug \
   && docker-php-ext-enable xdebug \
-  && rm -rf /tmp/pear 
+  && rm -rf /tmp/pear
 
 
